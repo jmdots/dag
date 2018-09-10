@@ -185,6 +185,41 @@ func TestDAG_DeleteEdge(t *testing.T) {
 	}
 }
 
+func TestDAG_GetVertexValue(t *testing.T) {
+	dag1 := dag.NewDAG()
+
+	vertex1 := dag.NewVertex("1", nil)
+
+	err := dag1.AddVertex(vertex1)
+	if err != nil {
+		t.Fatalf("Can't add vertex to DAG: %s", err)
+	}
+
+	value, _ := dag1.Vertices.Get("1")
+
+	if value != nil {
+		t.Fatalf("Expected value to be nil but got %v.", value)
+	}
+}
+
+func TestDAG_GetVertexValueString(t *testing.T) {
+	dag1 := dag.NewDAG()
+
+	expected := "one"
+	vertex1 := dag.NewVertex("1", expected)
+
+	err := dag1.AddVertex(vertex1)
+	if err != nil {
+		t.Fatalf("Can't add vertex to DAG: %s", err)
+	}
+
+	value, _ := dag1.Vertices.Get("1")
+
+	if value != expected {
+		t.Fatalf("Expected value to be %v but got %v.", expected, value)
+	}
+}
+
 func TestDAG_Order(t *testing.T) {
 	dag1 := dag.NewDAG()
 
